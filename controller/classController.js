@@ -149,13 +149,14 @@ exports.deleteMyClass = async (req, res) => {
 
 exports.updateMyClass = async (req, res) => {
   try {
-  
-    const less = await Class.findById(req.params.id)
+    const less = await Class.findById(req.params.id);
 
-    if(less.user.id.toString() !== req.user.id ){
-      return res.status(401).json({ msg: "User not Authorized" });
+    if (less.user.id.toString() !== req.user.id) {
+      return res
+        .status(401)
+        .json({ msg: "Access Denied you do not own this class" });
     }
-     const lesson = await Class.findByIdAndUpdate(req.params.id, req.body, {
+    const lesson = await Class.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
@@ -170,19 +171,20 @@ exports.updateMyClass = async (req, res) => {
   }
 };
 
-
-exports.getAllMyClass = async(req, res)=>{
+//working
+exports.getAllMyClass = async (req, res) => {
   try {
     const lesson = await Class.find();
-
-    const myClass = lesson.filter((el)=> el >=  req.user.id )
-    console.log(myClass);
+    const userClass = lesson.filter(
+      el => el.user._id.toString() === req.user.id
+    );
+    // console.log(user);
 
     res.status(200).json({
       status: "success",
-      NumOFclasses: lesson.length,
+      NumOFclasses: userClass.length,
       data: {
-        myClass
+        myClass: userClass
       }
     });
   } catch (err) {
@@ -191,4 +193,4 @@ exports.getAllMyClass = async(req, res)=>{
       message: err.message
     });
   }
-}
+};

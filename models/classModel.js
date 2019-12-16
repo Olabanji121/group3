@@ -58,23 +58,23 @@ classSchema.pre(/^find/, function(next){
   });
   next()
 })
-classSchema.pre(/^find/, function(next){
-  this.populate({
-    path:'user',
-    select: '-__v -passwordchangedat -datecreated -email'
-  });
-  next()
-})
+// classSchema.pre(/^find/, function(next){
+//   this.populate({
+//     path:'user',
+//     select: '-__v -passwordchangedat -datecreated -email'
+//   });
+//   next()
+// })
 
 
 
 //  virtual populate to populate the tour model with reviews
-classSchema.virtual('reviews', {
-    ref: 'Review',
-    foreignField: 'class',
-    localField: '_id',
+// classSchema.virtual('class', {
+//     ref: 'User',
+//     foreignField: 'class',
+//     localField: '_id',
     
-  });
+//   });
 
 const Class = mongoose.model("Class", classSchema);
 

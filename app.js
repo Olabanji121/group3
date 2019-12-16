@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'development') {
 // app.use('/api', limiter);
 
 // body parser middleware, reading data from body into req.body
-app.use(express.json({ extends: false, limit: '10kb' }));
+app.use(express.json({ extended: false, limit: '10kb' }));
 
 // Data sanitization against NoSQL query injection
 // app.use(mongoSanitize());

@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/signUp", authController.signUp);
 router.post("/logIn", authController.login);
-router.patch('/updateMyClass/:id', authController.protect, authController.restrictTo( 'instructor'), classController.updateMyClass)
+router.patch('/updateMyClass/:id', authController.protect, authController.restrictTo( 'instructor', 'admin'), classController.updateMyClass)
 router.get('/me', authController.protect, userController.getMe)
 router.patch('/updateMe', authController.protect, userController.updateMe)
 router.get('/getAllMyClass', authController.protect, classController.getAllMyClass)
